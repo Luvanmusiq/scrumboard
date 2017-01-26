@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Story:</strong>
+  <%= @task.story_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @task.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @task.description %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @task.owner %>
+</p>
+
+<p>
+  <strong>Estimated hours:</strong>
+  <%= @task.estimated_hours %>
+</p>
+
+<p>
+  <strong>Todo hours:</strong>
+  <%= @task.todo_hours %>
+</p>
+
+<p>
+  <strong>Completed hours:</strong>
+  <%= @task.completed_hours %>
+</p>
+
+<p>
+  <strong>Dependencies:</strong>
+  <%= @task.dependencies %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @task.status %>
+</p>
+
+<p>
+  <strong>Status indicator:</strong>
+  <%= @task.status_indicator %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

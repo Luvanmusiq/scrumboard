@@ -1,0 +1,159 @@
+accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /*  essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
+
+.projects [data-toggle="collapse"]:after
+{
+	font-family: 'Glyphicons Halflings';
+	content: "\e114";
+	float: left;
+	color: #b0c5d8;
+	font-size: 18px;
+	line-height: 22px;
+	outline-color: transparent;
+
+	-webkit-transform: rotate(-90deg);
+	-moz-transform:    rotate(-90deg);
+	-ms-transform:     rotate(-90deg);
+	-o-transform:      rotate(-90deg);
+	transform:         rotate(-90deg);
+}
+.projects [data-toggle="collapse"].collapsed:after
+{
+	-webkit-transform: rotate(90deg);
+	-moz-transform:    rotate(90deg);
+	-ms-transform:     rotate(90deg);
+	-o-transform:      rotate(90deg);
+	transform:         rotate(90deg);
+}
+
+/*input:focus { outline: none; }
+
+body,html{
+	width: 100%;
+	height: 100%;
+	background: url('http://subtlepatterns.com/patterns/crossword.png');
+	background-repeat: repeat;
+}
+
+a {
+	color: white;
+	outline: none !important;
+}
+
+a:-webkit-any-link{
+	text-decoration: none !important;
+}
+
+ul{
+ 	list-style-type: none;
+ 	-webkit-padding-start: 0 !important;
+ }
+
+.trackAccordion{
+	margin: 50px auto;
+	background-color: #2d2d2d;
+	height: 790px;
+	width: 296px;
+	border-radius: 5px; 
+	color: white;
+	font-family: 'Helvetica';
+	font-weight: bold;
+	padding-top: 30px;
+	font-size: 1em;
+	text-align: center;
+	overflow: hidden;
+}
+
+ul.trackAccordion > li{
+	color: white;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	border-bottom: thick solid #464646;
+}
+
+ul.tracks > li{
+	padding: 20px;
+	background-color: #444444;
+	margin-bottom: 2px;
+	margin-left: -10px;
+	text-align: left;
+	font-weight: normal;
+	font-size: 14px;
+
+}
+
+ul#cert_Track > li{
+	border-left:thick solid #01cfe7;
+	border-left-width:20px;
+}
+
+ul#kids_Track > li{
+	border-left:thick solid #aa2e54;
+	border-left-width:20px;
+}
+
+ul#more_Track > li{
+	border-left:thick solid #618daa;
+	border-left-width:20px;
+}
+
+
+.proTrack{
+	padding-top: 0 !important;
+}
+
+.accoTrack{
+	margin-bottom: 30px;
+}
+.blueBorder{
+	background: #00d0e7;
+	position: relative;
+	left: -58px;
+	padding: 20px 13px 19px 7px;
+}
+
+.nestedElemAccor{
+	margin-top: -20px;
+}
+.nestedElems{
+	border-bottom: none;
+}
+
+.begNestElem{
+	background-color: #0bddf0;
+	padding: 13px 105px 13px 105px
+}
+
+.intNestElem{
+	background-color: #08a2b0;
+	padding: 13px 105px 13px 105px
+}
+
+.advNestElem{
+	background-color: #067983;
+	padding: 13px 105px 13px 105px
+}
+.trackAccordion {
+  margin: 50px auto;
+  background-color: #2d2d2d;
+  height: 790px;    //Check by commenting the height.
+  width: 296px;
+  border-radius: 5px;
+  color: white;
+  font-family: 'Helvetica';
+  font-weight: bold;
+  padding-top: 30px;
+  font-size: 1em;
+  text-align: center;
+  overflow: hidden;
+}

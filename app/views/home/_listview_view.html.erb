@@ -1,0 +1,89 @@
+<%= stories = Story.all %>
+<%= projects = Project.all %>
+
+
+<div class="row">
+  <div class="col-sm-10">
+    <button type="button" class="btn btn-success navbar-btn btn-sm" data-toggle="modal" data-target="#new-project-modal2">         Create New Project
+    </button>
+  </div>
+</div>
+
+<table class="table" aria-multiselectable="true">
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Status</th>
+      <th>Owner</th>
+      <th>Points</th>
+    </tr>
+  </thead>
+  <tbody>
+  <ul class="trackAccordion nestedElemAccor">
+    <%# client = TrackerApi::Client.new(token: '862a0076867fd310d253b5c3ab191654') %>  
+    <% projects.each_with_index do |project, project_id| %>
+    <li class="trackAccordion">
+    <tr class="projects" id="proj-<%= @project_id %>">
+      <td>
+        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-story-modal<%= project.id %>"> +
+        </button>
+      </td>
+      <td>
+        <button class="projects clickable" data-toggle="collapse" data-parent="accordion" id="<%= project.id %>" data-target=".<%= project.id %>collapsed" toggle="false">
+          <i class="projectsglyphicon glyphicon glyphicon-large glyphicon-chevron-right"></i>
+        </button>
+      </td>
+
+      <td><%= project.id %></td>
+      <!--<td><%= link_to project["name"], project_path(project.id) %></td>-->
+      <td><%= link_to project["name"], "#", data: {toggle: "modal", target: "#new_project_modal"} %></td>
+      <td><%# link_to story["name"], story["name"] %></td>
+      <td><%= project["product_owner"] %></td>   
+      <td><%# project.client %></td>
+    </tr>
+    </li>
+    <ul class="stories">
+    <% project.stories.each do |story, project_id| %>
+    <%#<tr class="clickable" data-toggle="collapse" id="<%= story.project_id %><%#{}" data-target=".<%= story.id %><%#collapsed"%>  
+    <li class = "nestedElems">
+      <tr class="storiescollapse collapse <%= project.id %>collapsed" data-toggle="collapse">
+        <td>
+          <button type="button" data-toggle="modal" data-target="#new-task-modal" data-id="<% story.id %>" class="open-NewTaskModal hidden">
+            +
+          </button>
+        </td>
+        <td>
+          <button class="stories clickable" data-toggle="collapse" id="<%= story.id %>" data-target=".<%= story.id %>collapsed">
+            <i class="storiesglyphicon glyphicon glyphicon-large glyphicon-chevron-right" id="<%= story.id %>"></i>
+          </button>
+        </td>
+        <!--<td><%# link_to 'Add a Task', Tasks::create_task(:locals => {:project => '1396874', :name => "New Task"}) %></td>-->
+        
+        <td><%= story.id %></td>
+        <td><%= link_to story.name, story.name %></td>
+        <td><%# story.owner_ids %></td>
+        <td><%# project.point_scale %></td>
+
+      </tr>
+      </li>
+    <% story.tasks.each do |task, story_id| %>
+      <tr class="taskscollapse collapse out <%= story.id %>collapsed" data-id="<%= task.story_id %>"" data-toggle="collapse">
+        <%#tr data-toggle="collapse" data-target="#stories" class="accordion-toggle"> %>
+        <td></td>
+        <td></td>
+        <td><%= task.id %></td>
+        <td><%= task.description %></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+    <% end %>
+    </ul>
+    <% end %>
+    </ul>
+  </tbody>
+</table>
+<!--</html>-->

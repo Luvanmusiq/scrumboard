@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @story.project_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @story.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @story.description %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @story.owner %>
+</p>
+
+<p>
+  <strong>Todo hours:</strong>
+  <%= @story.todo_hours %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @story.status %>
+</p>
+
+<p>
+  <strong>Status indicator:</strong>
+  <%= @story.status_indicator %>
+</p>
+
+<p>
+  <strong>Dependencies:</strong>
+  <%= @story.dependencies %>
+</p>
+
+<%= link_to 'Edit', edit_story_path(@story) %> |
+<%= link_to 'Back', stories_path %>
