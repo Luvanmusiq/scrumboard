@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
   def index
     @projects = Project.all
     @project = Project.new
-    @story = Story.new
+    #@story = Story.new
   end
 
   # GET /projects/1

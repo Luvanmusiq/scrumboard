@@ -5,6 +5,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = Task.all
+    @task = Task.new
   end
 
   # GET /tasks/1
@@ -15,6 +16,9 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+    @story = Story.find(params[:story_id])
+    @project = Project.find(params[:project_id])
+    @story_id = @story.id
   end
 
   # GET /tasks/1/edit
@@ -24,6 +28,13 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+    #project = Project.find(params[:task][:story][:project_id])
+    story = Story.find(params[:task][:story_id])
+    story.tasks.create(task_params)
+    #Story.create(story_params)
+
+    redirect_to root_path
+=begin
     @task = Task.new(task_params)
 
     respond_to do |format|
@@ -36,6 +47,7 @@ class TasksController < ApplicationController
       end
     end
     redirect_to root_path
+=end
   end
 
   # PATCH/PUT /tasks/1

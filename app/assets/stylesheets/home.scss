@@ -1,3 +1,23 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#lol{
+    height:40px;
+    border:1px solid #555;
+  width:50%;
+  margin:30px;
+}
+#lol:before{
+  content:"\2b";
+  font-family:"Glyphicons Halflings";
+  line-height:1;
+  margin:10px;
+  display:inline-block;
+}
+#lol:after{
+  content:"\2a";
+  font-family:"Glyphicons Halflings";
+  line-height:1;
+  margin:10px;
+  display:inline-block;
+}

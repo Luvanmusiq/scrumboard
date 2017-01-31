@@ -1,10 +1,18 @@
 class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
-
+  respond_to :html
+  protect_from_forgery except: :new
   # GET /stories
   # GET /stories.json
   def index
     @stories = Story.all
+    @story = Story.new
+    logger.info @project_id
+    project = Project.find(params[:project_id])
+    #redirect_to root_path
+    respond_to do |format|
+     format.js {render 'new'}
+    end
   end
 
   # GET /stories/1
@@ -15,6 +23,14 @@ class StoriesController < ApplicationController
   # GET /stories/new
   def new
     @story = Story.new
+    @project = Project.find(params[:project_id])
+    @project_id = @project.id
+    logger.info @project_id
+=begin
+    respond_to do |format|
+     format.html {render 'home/_new_story_form.html.erb', :params => {:project => @project}}
+   end
+=end
   end
 
   # GET /stories/1/edit
@@ -26,9 +42,9 @@ class StoriesController < ApplicationController
   def create
     project = Project.find(params[:story][:project_id])
     project.stories.create(story_params)
-    Story.create(story_params)
+    #Story.create(story_params)
 
-    redirect_to project
+    redirect_to root_path
 =begin
     @story = Story.new(story_params)
 

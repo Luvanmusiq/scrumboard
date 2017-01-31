@@ -1,43 +1,47 @@
 source 'https://rubygems.org'
-
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
+gem 'pg'
+gem 'rails', '4.2.1'
 gem 'sqlite3'
-# Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'activerecord', '~> 4.2.0'
+gem 'faraday', '~> 0.9.0'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+gem 'tracker_api', '~> 0.2.0'
+gem 'jquery-ui-rails' 
+# gem "twitter-bootstrap-rails" 
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git' # install the lastest version
+gem "less-rails"
+gem 'jquery-turbolinks', '~> 2.1'
+gem 'responders', '~> 2.0'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'will_paginate', '3.0.5'
+gem 'will_paginate-bootstrap'
+gem "friendly_id", "~> 5.0.2"
+gem 'therubyracer'
+gem 'rake', '< 11.0'
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+group :assets do
+  gem 'bootstrap-sass', '~> 3.3.3'
+  gem 'font-awesome-rails'
 end
 
-group :development do
+group :development, :test do
+  gem 'rspec-rails', '~> 2.14.2'
+  gem 'capybara', '~> 2.2.1'
+  gem 'launchy', '~> 2.4.2'
+  gem 'dotenv-rails', '~> 0.11.1'
+
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -45,3 +49,7 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  gem 'webmock', '~> 1.17.4'
+  gem 'vcr', '~> 2.9.0'
+end

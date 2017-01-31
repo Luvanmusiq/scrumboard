@@ -1,7 +1,5 @@
-<%= stories = Story.all %>
-<%= projects = Project.all %>
-
-
+<% stories = Story.all %>
+<% projects = Project.all %> 
 <div class="row">
   <div class="col-sm-10">
     <button type="button" class="btn btn-success navbar-btn btn-sm" data-toggle="modal" data-target="#new-project-modal2">         Create New Project
@@ -22,10 +20,10 @@
     </tr>
   </thead>
   <tbody>
-  <ul class="trackAccordion nestedElemAccor">
-    <%# client = TrackerApi::Client.new(token: '862a0076867fd310d253b5c3ab191654') %>  
+  <ul class="projects">
     <% projects.each_with_index do |project, project_id| %>
-    <li class="trackAccordion">
+    <% project_id = project.id %>
+    <% @project = project %>
     <tr class="projects" id="proj-<%= @project_id %>">
       <td>
         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-story-modal<%= project.id %>"> +
@@ -33,32 +31,32 @@
       </td>
       <td>
         <button class="projects clickable" data-toggle="collapse" data-parent="accordion" id="<%= project.id %>" data-target=".<%= project.id %>collapsed" toggle="false">
-          <i class="projectsglyphicon glyphicon glyphicon-large glyphicon-chevron-right"></i>
+          <i class="projectsglyphicon chevron_toggleable glyphicon glyphicon-large glyphicon-chevron-right"></i>
         </button>
       </td>
 
       <td><%= project.id %></td>
       <!--<td><%= link_to project["name"], project_path(project.id) %></td>-->
-      <td><%= link_to project["name"], "#", data: {toggle: "modal", target: "#new_project_modal"} %></td>
+      <!--<td><%= link_to project["name"], edit_project_path(project), data: {toggle: "modal", target: "#edit-project-modal2"}, :remote => true %></td>-->
+      <td><%= link_to project["name"], edit_project_path(project), {controller: projects, action: "edit"} %></td>
       <td><%# link_to story["name"], story["name"] %></td>
       <td><%= project["product_owner"] %></td>   
       <td><%# project.client %></td>
     </tr>
-    </li>
     <ul class="stories">
     <% project.stories.each do |story, project_id| %>
-    <%#<tr class="clickable" data-toggle="collapse" id="<%= story.project_id %><%#{}" data-target=".<%= story.id %><%#collapsed"%>  
-    <li class = "nestedElems">
+    <% story_id = story.id %>
+    <% @story = story %>
+    <!-- <%#<tr class="clickable" data-toggle="collapse" id="<%= story.project_id %>" data-target=".<%= story.id %>collapsed"%>   -->
       <tr class="storiescollapse collapse <%= project.id %>collapsed" data-toggle="collapse">
         <td>
-          <button type="button" data-toggle="modal" data-target="#new-task-modal" data-id="<% story.id %>" class="open-NewTaskModal hidden">
-            +
-          </button>
+          <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-task-modal<%= story.id %><%= project.id %>"> +
+        </button>
         </td>
         <td>
-          <button class="stories clickable" data-toggle="collapse" id="<%= story.id %>" data-target=".<%= story.id %>collapsed">
-            <i class="storiesglyphicon glyphicon glyphicon-large glyphicon-chevron-right" id="<%= story.id %>"></i>
-          </button>
+          <button class="stories clickable" data-toggle="collapse" data-parent="accordion" id="<%= story.id %>" data-target=".<%= story.id %>collapsed" toggle="false">
+          <i class="projectsglyphicon chevron_toggleable glyphicon glyphicon-large glyphicon-chevron-right"></i>
+        </button>
         </td>
         <!--<td><%# link_to 'Add a Task', Tasks::create_task(:locals => {:project => '1396874', :name => "New Task"}) %></td>-->
         
@@ -68,10 +66,10 @@
         <td><%# project.point_scale %></td>
 
       </tr>
-      </li>
+      
     <% story.tasks.each do |task, story_id| %>
-      <tr class="taskscollapse collapse out <%= story.id %>collapsed" data-id="<%= task.story_id %>"" data-toggle="collapse">
-        <%#tr data-toggle="collapse" data-target="#stories" class="accordion-toggle"> %>
+      <tr class="taskscollapse collapse out <%= story.id %>collapsed" data-toggle="collapse">
+        <!--<%#tr data-toggle="collapse" data-target="#stories" class="accordion-toggle"> %>-->
         <td></td>
         <td></td>
         <td><%= task.id %></td>
@@ -80,8 +78,20 @@
         <td></td>
       </tr>
     <% end %>
+    <div class='container'>
+        <% yield %>
+          <% if @story.id == story_id %>
+            <%= render partial: "home/new_task_form", locals: {story_id: story.id} %>
+          <% end %>
+      </div>
     <% end %>
     </ul>
+    <div class='container'>
+        <% yield %>
+          <% if @project.id == project_id %>
+            <%= render partial: "home/new_story_form", locals: {project_id: project.id} %>
+          <% end %>
+      </div>
     <% end %>
     </ul>
   </tbody>
