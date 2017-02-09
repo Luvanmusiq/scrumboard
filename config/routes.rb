@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :tasks
-  resources :stories
-  resources :projects, defaults: { format: 'js' }
+  resources :stories, defaults: { format: 'html' }
+  resources :projects #, defaults: { format: 'js' }
   #get 'home/index'
 
   # The priority is based upon order of creation: first created -> highest priority.

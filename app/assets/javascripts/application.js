@@ -16,4 +16,6 @@
 //= require home
 //= require turbolinks
 //= require_self
+//= require bootstrap
+// require bootstrap/modal
 //= require_tree .

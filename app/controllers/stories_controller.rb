@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
-  respond_to :html
+  respond_to :js, :html
   protect_from_forgery except: :new
   # GET /stories
   # GET /stories.json
@@ -23,14 +23,14 @@ class StoriesController < ApplicationController
   # GET /stories/new
   def new
     @story = Story.new
-    @project = Project.find(params[:project_id])
+    @project = Project.find(params[:project])
     @project_id = @project.id
     logger.info @project_id
-=begin
+
     respond_to do |format|
-     format.html {render 'home/_new_story_form.html.erb', :params => {:project => @project}}
+     #format.html {render :partial => 'home/new_story_form', :remote => true }
+     format.html {render 'stories/new' }
    end
-=end
   end
 
   # GET /stories/1/edit
@@ -79,7 +79,7 @@ class StoriesController < ApplicationController
   def destroy
     @story.destroy
     respond_to do |format|
-      format.html { redirect_to stories_url, notice: 'Story was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Story was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

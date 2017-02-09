@@ -8,9 +8,6 @@
         <h4 class="modal-title">New Story</h4>
       </div>
        <!-- form for submitting tasks -->
-      <!-- <form action="" class="form-horizontal" action="/tasks" method="post"> -->
-       <!-- use the form helper in rails -->
-      <%# form_for [:project, @story], url: "/projects/:project_id/stories/new", html: { class: "form-horizontal" } do %>
       <%= form_for :story, url: '/stories', html: { class: "form-horizontal" } do %>
       <div class="modal-body">
           <!--<div class="form-group">
@@ -23,7 +20,7 @@
           <div class="form-group">
             <label for="inputStory" class="col-sm2 control-label">Story</label>
             <div class="col-sm-10">
-              <input type="text" name="story[name]" id="inputStory" class="form-control" placeholder="What is your story?" required>
+              <input type="text" name="story[name]" id="inputStory" class="form-control" value="Story Title" required>
               </input>
             </div>
           </div>
@@ -37,14 +34,14 @@
           <div class="form-group">
             <label for="inputProjectDescription" class="col-sm2 control-label">Description</label>
             <div class="col-sm-10">
-              <textarea name="story[description]" id="inputDescription" class="form-control" placeholder="Project Description" required>
+            <textarea name="story[description]" id="inputDescription" class="form-control" value="Project Description" required>
               </textarea>
             </div>
           </div>
           <div class="form-group">
             <label for="inputProjectProductOwner" class="col-sm2 control-label">Owner</label>
             <div class="col-sm-10">
-              <input name="story[owner]" id="inputProjectProductOwner" class="form-control" placeholder="Product Owner" required>
+            <input name="story[owner]" id="inputProjectProductOwner" class="form-control" value="Product Owner" required>
               </input>
             </div>
           </div>

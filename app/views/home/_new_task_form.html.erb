@@ -8,49 +8,49 @@
         <h4 class="modal-title">New Task</h4>
       </div>
   <%= form_for :task, url: '/tasks', html: { class: "form-horizontal" } do  |f| %>
-
+  <div class="field">
+    <%= f.label :project_id %><br>
+    <%= f.text_field :project_id, value: @project.id.to_s() + ': ' + @project.name%>
+  </div>
   <div class="field">
     <%= f.label :story_id %><br>
-    <%= f.text_field :story_id %>
+    <%= f.text_field :story_id, value: @story.id.to_s() + ': ' + @story.name%>
   </div>
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :value => 'Task Title' %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_field :description, :value => 'Task Description' %>
   </div>
   <div class="field">
     <%= f.label :owner %><br>
-    <%= f.text_field :owner %>
+    <%= f.text_field :owner, :value => 'Task Owner' %>
   </div>
   <div class="field">
     <%= f.label :estimated_hours %><br>
-    <%= f.text_field :estimated_hours %>
+    <%= f.text_field :estimated_hours, :value => 'Task Estimated Hous' %>
   </div>
   <div class="field">
     <%= f.label :todo_hours %><br>
-    <%= f.text_field :todo_hours %>
+    <%= f.text_field :todo_hours, :value => 'Task ToDo Hours' %>
   </div>
   <div class="field">
     <%= f.label :completed_hours %><br>
-    <%= f.text_field :completed_hours %>
+    <%= f.text_field :completed_hours, :value => 'Task Completed Hours' %>
   </div>
   <div class="field">
     <%= f.label :dependencies %><br>
-    <%= f.text_field :dependencies %>
+    <%= f.text_field :dependencies, :value => 'Task Dependencies' %>
   </div>
   <div class="field">
     <%= f.label :status %><br>
-    <%= f.text_field :status %>
+    <%= f.text_field :status, :value => 'Task Status' %>
   </div>
   <div class="field">
     <%= f.label :status_indicator %><br>
-    <%= f.text_field :status_indicator %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+    <%= f.text_field :status_indicator, :value => 'Task Status Indicator' %>
   </div>
   <div class="modal-footer">
         <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Close</button>

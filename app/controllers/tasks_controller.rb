@@ -1,11 +1,15 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+  respond_to :js, :html
   # GET /tasks
   # GET /tasks.json
   def index
     @tasks = Task.all
     @task = Task.new
+    story = Story.find(params[:story_id])
+    respond_to do |format|
+     format.js {render 'new'}
+    end
   end
 
   # GET /tasks/1
@@ -69,7 +73,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Task was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

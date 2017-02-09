@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126055904) do
+ActiveRecord::Schema.define(version: 20170208054547) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170126055904) do
     t.binary   "status_indicator"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "project_id"
   end
 
 end

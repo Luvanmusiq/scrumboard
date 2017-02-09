@@ -1,0 +1,113 @@
+<% stories = Story.all %>
+<% projects = Project.all %>
+<% tasks = Task.all %>
+<div class="col-sm-2">
+<table class='table-bordered'>
+	<thead>
+    <tr class="table-success">
+      <th>Project</th>
+    </tr>
+    </thead>
+    <tbody>
+    	<ul class="projects">
+		<% projects.each_with_index do |project, project_id| %>
+		<tr class="projects bg-active" id="proj-<%= @project_id %>" height="15px">
+		<td><%= project.name %></td>
+		</tr>
+		<% end %>
+		</ul>
+    </tbody>
+</table>
+</div>
+<div class="col-sm-10">
+<table class='table-bordered'>
+	<thead>
+    <tr class="table-success">
+      <th>Backlog</th>
+      <th>Review</th>
+      <th>Code</th>
+      <th>Testing/Code Review</th>
+      <th>QA</th>
+      <th>Done</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<ul class="projects">
+		<% projects.each_with_index do |project, project_id| %>
+		
+			<% tasks.each do |task, project_id| %>
+			<td><%= project.name %></td>
+
+			<td><%= task.project_id %></td>
+			<td><%= project_id %></td>
+			<tr class="taskscollapse collapse out" data-toggle="collapse">
+			<% if task.project_id == project_id %>
+
+			<td><%= task.name %></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			</tr>
+			<% end %>
+			<% end %>
+			</ul>
+		</tr>
+		<% end %>
+		</ul>
+  </tbody>
+</table>
+</div>
+<!--<div class="col-sm-10">
+<table class='table-bordered'>
+	<thead>
+    <tr class="table-success">
+      <th>Backlog</th>
+      <th>Review</th>
+      <th>Code</th>
+      <th>Testing/Code Review</th>
+      <th>QA</th>
+      <th>Done</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<ul class="projects">
+	<% projects.each_with_index do |project, project_id| %>
+	<tr class="projects bg-active" id="proj-<%= @project_id %>" height="15px">
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	</tr>
+		<ul class="stories">
+		<% project.stories.each_with_index do |story, project_id| %>
+		<tr class="storiescollapse collapse <%= project.id %>collapsed bg-info" data-toggle="collapse" height="15px" Color="">
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		</tr>
+			<ul class="tasks">
+			<% story.tasks.each do |task, story_id| %>
+			<tr class="taskscollapse collapse out <%= story.id %>collapsed" data-toggle="collapse">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			</tr>
+			<% end %>
+			</ul>
+		<% end %>
+		</ul>
+	<% end %>
+  	</ul>
+  </tbody>
+</table>
+</div>-->

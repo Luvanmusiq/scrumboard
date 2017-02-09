@@ -1,17 +1,17 @@
 <% stories = Story.all %>
-<% projects = Project.all %> 
+<% projects = Project.all %>
+<% tasks = Task.all %> 
 <div class="row">
-  <div class="col-sm-10">
+  <div class="col-sm-12">
     <button type="button" class="btn btn-success navbar-btn btn-sm" data-toggle="modal" data-target="#new-project-modal2">         Create New Project
     </button>
   </div>
 </div>
-
-<table class="table" aria-multiselectable="true">
+<div class="col-md-10">
+<table class="table table-hover table-sm" aria-multiselectable="true">
   <thead>
-    <tr>
-      <th>&nbsp;</th>
-      <th>&nbsp;</th>
+    <tr class="table-success">
+      <th class="col-md-20">&nbsp;</th>
       <th>ID</th>
       <th>Title</th>
       <th>Status</th>
@@ -24,21 +24,24 @@
     <% projects.each_with_index do |project, project_id| %>
     <% project_id = project.id %>
     <% @project = project %>
-    <tr class="projects" id="proj-<%= @project_id %>">
-      <td>
-        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-story-modal<%= project.id %>"> +
-        </button>
-      </td>
+    <tr class="projects bg-active" id="proj-<%= @project_id %>" height="15px">
       <td>
         <button class="projects clickable" data-toggle="collapse" data-parent="accordion" id="<%= project.id %>" data-target=".<%= project.id %>collapsed" toggle="false">
-          <i class="projectsglyphicon chevron_toggleable glyphicon glyphicon-large glyphicon-chevron-right"></i>
+          <i class="projectsglyphicon chevron_toggleable glyphicon glyphicon-medium glyphicon-chevron-right"></i>
         </button>
+        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-story-modal<%= project.id %>"> + </button>
+        <%= link_to '+', new_story_path(@project.id), {controller: stories, action: "new", project: @project} %>
+        <!-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#new-story-modal<%= project.id %>"> -
+        </button> -->
+        <%# link_to "-", {controller: projects, action: "destroy", id: project_id}, :html => { :class => :btn } %>
+        <%# link_to 'Destroy',  post,  controller: :projects, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%= link_to '+', new_story_path(:project => @project.id), :remote => true %>
+        <%= link_to '-', project_path(@project), data: {:confirm => 'Are you sure?'}, :method => :delete %>
       </td>
-
       <td><%= project.id %></td>
       <!--<td><%= link_to project["name"], project_path(project.id) %></td>-->
       <!--<td><%= link_to project["name"], edit_project_path(project), data: {toggle: "modal", target: "#edit-project-modal2"}, :remote => true %></td>-->
-      <td><%= link_to project["name"], edit_project_path(project), {controller: projects, action: "edit"} %></td>
+      <td><%= link_to project.name, edit_project_path(project), {controller: projects, action: "edit", remote: true} %></td>
       <td><%# link_to story["name"], story["name"] %></td>
       <td><%= project["product_owner"] %></td>   
       <td><%# project.client %></td>
@@ -48,33 +51,33 @@
     <% story_id = story.id %>
     <% @story = story %>
     <!-- <%#<tr class="clickable" data-toggle="collapse" id="<%= story.project_id %>" data-target=".<%= story.id %>collapsed"%>   -->
-      <tr class="storiescollapse collapse <%= project.id %>collapsed" data-toggle="collapse">
-        <td>
-          <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-task-modal<%= story.id %><%= project.id %>"> +
-        </button>
-        </td>
+      <tr class="storiescollapse collapse <%= project.id %>collapsed bg-info" data-toggle="collapse" height="15px" Color="">
         <td>
           <button class="stories clickable" data-toggle="collapse" data-parent="accordion" id="<%= story.id %>" data-target=".<%= story.id %>collapsed" toggle="false">
-          <i class="projectsglyphicon chevron_toggleable glyphicon glyphicon-large glyphicon-chevron-right"></i>
+            <i class="projectsglyphicon chevron_toggleable glyphicon glyphicon-medium glyphicon-chevron-right"></i>
+          </button>
+          <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-task-modal<%= story.id %><%= project.id %>"> +
         </button>
+        <%= link_to '-', story_path(@story, project_id), data: {:confirm => 'Are you sure?'}, :method => :delete %>
         </td>
         <!--<td><%# link_to 'Add a Task', Tasks::create_task(:locals => {:project => '1396874', :name => "New Task"}) %></td>-->
         
         <td><%= story.id %></td>
-        <td><%= link_to story.name, story.name %></td>
+        <td><%= link_to story.name, edit_story_path(story), {controller: stories, action: "edit", remote: true} %></td>
         <td><%# story.owner_ids %></td>
         <td><%# project.point_scale %></td>
 
       </tr>
       
     <% story.tasks.each do |task, story_id| %>
+      <% task_id = task.id %>
+    <% @task = task %>
       <tr class="taskscollapse collapse out <%= story.id %>collapsed" data-toggle="collapse">
         <!--<%#tr data-toggle="collapse" data-target="#stories" class="accordion-toggle"> %>-->
-        <td></td>
-        <td></td>
+        <td><%= link_to '-', task_path(@task, story_id), data: {:confirm => 'Are you sure?'}, :method => :delete %></td>
         <td><%= task.id %></td>
+        <td><%= link_to task.name, edit_task_path(task), {controller: tasks, action: "edit", remote: true} %></td>
         <td><%= task.description %></td>
-        <td></td>
         <td></td>
       </tr>
     <% end %>
@@ -90,10 +93,12 @@
         <% yield %>
           <% if @project.id == project_id %>
             <%= render partial: "home/new_story_form", locals: {project_id: project.id} %>
+            <%= render partial: "projects/dialog", locals: {project: project} %>
           <% end %>
       </div>
     <% end %>
     </ul>
   </tbody>
 </table>
+</div>
 <!--</html>-->
