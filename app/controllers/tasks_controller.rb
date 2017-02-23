@@ -15,18 +15,38 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+    redirect_to root_path
   end
 
   # GET /tasks/new
   def new
     @task = Task.new
     @story = Story.find(params[:story_id])
-    @project = Project.find(params[:project_id])
+    #@project = Project.find(params[:project_id])
     @story_id = @story.id
+    story_id = @story.id
+    story_name = @story.name
+    task_id = @task.id
+    task_name = @task.name
+
+     #format.html {render :partial => 'home/new_story_form', :remote => true }
+    respond_to do |format|
+     format.js {render 'new', :locals => {story_id: story_id, story_name: story_name, task_id: task_id, task_name: task_name} }
+   end
   end
 
   # GET /tasks/1/edit
   def edit
+    story = Story.find(params[:story_id])
+    task = Task.find(params[:id])
+    story_id = story.id
+    story_name = story.name
+    task_id = task.id
+    task_name = task.name
+    logger.info story.id 
+    respond_to do |format|
+     format.js {render 'edit', :locals => {story_id: story_id, story_name: story_name, task_id: task_id, task_name: task_name}}
+    end
   end
 
   # POST /tasks

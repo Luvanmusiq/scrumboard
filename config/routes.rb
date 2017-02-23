@@ -1,8 +1,19 @@
 Rails.application.routes.draw do
+  get 'users/new'
+
   resources :tasks
-  resources :stories, defaults: { format: 'html' }
+  resources :stories #, defaults: { format: 'html' }
   resources :projects #, defaults: { format: 'js' }
   #get 'home/index'
+
+=begin
+resources :projects do
+    resources :stories do
+      resources :tasks
+    end
+  end
+=end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

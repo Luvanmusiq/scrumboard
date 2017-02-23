@@ -1,0 +1,13 @@
+// Add the dialog title
+$('#dialog h3').html("<i class=' glyphicon glyphicon-pencil'></i> Edit Story");
+ 
+// Render the edit form
+$('.modal-body').html("<%= j render('stories/form', story_id: story_id, story_name: story_name, project_id: project_id, project_name: project_name ).html_safe %>");
+ 
+// Show the dynamic dialog
+$('#dialog').modal("show");
+ 
+// Set focus to the first element
+$('#dialog').on('shown.bs.modal', function () {
+	  $('.first_input').focus()
+  });

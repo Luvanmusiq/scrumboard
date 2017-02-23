@@ -1,0 +1,26 @@
+<% task_id = task_id %>
+<% task_name = task_name %>
+<% story_id = story_id %>
+<% story_name = story_name %>
+<div class="modal fade in"
+           id="dialog" tabindex="-1" role="dialog" 
+           aria-labelledby="myModalLabel"
+           aria-hidden="true" 
+           data-backdrop="static" 
+           data-keyboard="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" 
+                data-dismiss="modal" 
+                aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title"></h3>
+      </div>
+      <div class="modal-body">
+      <%= render 'tasks/form', story_id: story_id, story_name: story_name, task_id: task_id, task_name: task_name, remote: true%>
+      </div>
+     <%# render 'projects/form', project: project, remote: true%>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

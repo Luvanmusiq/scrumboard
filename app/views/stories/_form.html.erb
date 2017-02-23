@@ -1,49 +1,49 @@
-<%= form_for(@story) do |f| %>
-  <% if @story.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@story.errors.count, "error") %> prohibited this story from being saved:</h2>
+<% if story_id == nil %>
+  <% story_id = "" %>
+<% end %>
+<% if story_name == nil %>
+  <% story_name = "" %>
+<% end %>
 
-      <ul>
-      <% @story.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :project_id %><br>
-    <%= f.text_field :project_id %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :owner %><br>
-    <%= f.text_field :owner %>
-  </div>
-  <div class="field">
-    <%= f.label :todo_hours %><br>
-    <%= f.text_field :todo_hours %>
-  </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.text_field :status %>
-  </div>
-  <div class="field">
-    <%= f.label :status_indicator %><br>
-    <%= f.text_field :status_indicator %>
-  </div>
-  <div class="field">
-    <%= f.label :dependencies %><br>
-    <%= f.text_field :dependencies %>
-  </div>
-  <div class="actions">
+<%= form_for @story, html: { class: "form-horizontal" } do |f|%>
+      <div class="modal-body">
+          <!--<div class="form-group">
+            <label for="inputStoryID" class="col-sm2 control-label">ID</label>
+            <div class="col-sm-10">
+              <input type="text" name="story[id]" class="form-control" id="id" value="<%= Story.new.id %>" required>
+              <!-- </div> -->
+            <!--</div>
+          </div>-->
+          <div class="form-group">
+            <label for="inputStory" class="col-sm2 control-label">Story</label>
+            <div class="col-sm-10">
+              <input type="text" name="story[name]" id="inputStory" class="form-control" value="<%= story_id %>: <%= story_name %>" required>
+              </input>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputProjectName" class="col-sm2 control-label">Project</label>
+            <div class="col-sm-10">
+              <input name="story[project_id]" id="inputProjectName" class="form-control" value="<%= project_id %>: <%= project_name %>" required>
+              </input>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputProjectDescription" class="col-sm2 control-label">Description</label>
+            <div class="col-sm-10">
+            <textarea name="story[description]" id="inputDescription" class="form-control" value="Project Description" required>
+              </textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputProjectProductOwner" class="col-sm2 control-label">Owner</label>
+            <div class="col-sm-10">
+            <input name="story[owner]" id="inputProjectProductOwner" class="form-control" value="Product Owner" required>
+              </input>
+            </div>
+          </div>
+      </div>
+      <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>

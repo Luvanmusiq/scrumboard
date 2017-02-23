@@ -1,7 +1,8 @@
 <% stories = Story.all %>
 <% projects = Project.all %>
 <% tasks = Task.all %>
-<div class="col-sm-2">
+<%# projects.stories.tasks.%>
+<div class="col-md-2">
 <table class='table-bordered'>
 	<thead>
     <tr class="table-success">
@@ -19,46 +20,75 @@
     </tbody>
 </table>
 </div>
-<div class="col-sm-10">
+<div class="col-md-10">
 <table class='table-bordered'>
 	<thead>
     <tr class="table-success">
-      <th>Backlog</th>
-      <th>Review</th>
-      <th>Code</th>
-      <th>Testing/Code Review</th>
-      <th>QA</th>
-      <th>Done</th>
+      <th style="width: 120px;">Project</th>
+      <th style="width: 120px;">Backlog</th>
+      <th style="width: 120px;">Review</th>
+      <th style="width: 120px;">Code</th>
+      <th style="width: 120px;">Testing/Code Review</th>
+      <th style="width: 120px;">QA</th>
+      <th style="width: 120px;">Done</th>
     </tr>
   </thead>
-  <tbody>
   	<ul class="projects">
 		<% projects.each_with_index do |project, project_id| %>
-		
-			<% tasks.each do |task, project_id| %>
-			<td><%= project.name %></td>
+		<tbody style="border-top: solid; border-bottom: solid;">
+		<tr style="border: none;">
+			<% project.stories.each do |story, story_id| %>
+				<% story.tasks.each do |task, task_id| %>
+				<tr style="height: 90px;">
+			<% if task.name == "Backlog" && task.status == "New" %>
+			<td class="borderless"><%= story.name %></td>
+			<% else %>
+			<td></td>
+			<% end %>
+			<% if task.name == "Review" && task.status == "In progress" %>
+			<td><%= story.name %></td>
+			<% else %>
+			<td></td>
+			<% end %>
+			<% if task.name == "Code" && task.status == "In progress" %>
+			<td style="border: none;"><%= story.name %></td>
+			<% else %>
+			<td style="border: none;"></td>
+			<% end %>
+			<% if task.name == "Test" && task.status == "In progress" %>
+			<td><%= story.name %></td>
+			<% else %>
+			<td></td>
+			<% end %>
+			<% if task.name == "QA" && task.status == "In progress" %>
+			<td><%= story.name %></td>
+			<% else %>
+			<td></td>
+			<% end %>
+				</tr>
+			<% end %>
+			<% end %>
+		</tr>
+		</tbody>
+		<% end %>
+		</ul>
+</table>
+</div>
+<!--<tr class="taskscollapse collapse out" data-toggle="collapse">
+			<% #if task.project_id == project_id %>
 
-			<td><%= task.project_id %></td>
-			<td><%= project_id %></td>
-			<tr class="taskscollapse collapse out" data-toggle="collapse">
-			<% if task.project_id == project_id %>
-
-			<td><%= task.name %></td>
+			<td><%# task.name %></td>
 			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
 			</tr>
-			<% end %>
-			<% end %>
+			<%# end %>
+			<% #end %>
 			</ul>
 		</tr>
-		<% end %>
-		</ul>
-  </tbody>
-</table>
-</div>
+		-->
 <!--<div class="col-sm-10">
 <table class='table-bordered'>
 	<thead>

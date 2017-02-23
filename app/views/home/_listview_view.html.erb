@@ -29,13 +29,8 @@
         <button class="projects clickable" data-toggle="collapse" data-parent="accordion" id="<%= project.id %>" data-target=".<%= project.id %>collapsed" toggle="false">
           <i class="projectsglyphicon chevron_toggleable glyphicon glyphicon-medium glyphicon-chevron-right"></i>
         </button>
-        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-story-modal<%= project.id %>"> + </button>
-        <%= link_to '+', new_story_path(@project.id), {controller: stories, action: "new", project: @project} %>
-        <!-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#new-story-modal<%= project.id %>"> -
-        </button> -->
-        <%# link_to "-", {controller: projects, action: "destroy", id: project_id}, :html => { :class => :btn } %>
-        <%# link_to 'Destroy',  post,  controller: :projects, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <%= link_to '+', new_story_path(:project => @project.id), :remote => true %>
+        <!--<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-story-modal<%= project.id %>"> + </button>-->
+        <%= link_to '+', new_story_path(:project=> project, :story_id => nil), {controller: stories, action: "new", remote: true} %>
         <%= link_to '-', project_path(@project), data: {:confirm => 'Are you sure?'}, :method => :delete %>
       </td>
       <td><%= project.id %></td>
@@ -47,7 +42,7 @@
       <td><%# project.client %></td>
     </tr>
     <ul class="stories">
-    <% project.stories.each do |story, project_id| %>
+    <% project.stories.each do |story, story_id| %>
     <% story_id = story.id %>
     <% @story = story %>
     <!-- <%#<tr class="clickable" data-toggle="collapse" id="<%= story.project_id %>" data-target=".<%= story.id %>collapsed"%>   -->
@@ -58,33 +53,45 @@
           </button>
           <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#new-task-modal<%= story.id %><%= project.id %>"> +
         </button>
-        <%= link_to '-', story_path(@story, project_id), data: {:confirm => 'Are you sure?'}, :method => :delete %>
+        <%= link_to '+', new_task_path(:story_id => story.id, :task_id => nil), {controller: tasks, action: "new", remote: true} %>
+        <%= link_to '-', story_path(@story), data: {:confirm => 'Are you sure?'}, :method => :delete %>
         </td>
         <!--<td><%# link_to 'Add a Task', Tasks::create_task(:locals => {:project => '1396874', :name => "New Task"}) %></td>-->
         
         <td><%= story.id %></td>
-        <td><%= link_to story.name, edit_story_path(story), {controller: stories, action: "edit", remote: true} %></td>
+        <td><%= link_to story.name, edit_story_path(:id => story.id, :project_id => project_id), {controller: stories, action: "edit", :locals => {story: story}, remote: true} %></td>
         <td><%# story.owner_ids %></td>
         <td><%# project.point_scale %></td>
 
       </tr>
       
-    <% story.tasks.each do |task, story_id| %>
+    <% story.tasks.each do |task, task_id| %>
       <% task_id = task.id %>
     <% @task = task %>
       <tr class="taskscollapse collapse out <%= story.id %>collapsed" data-toggle="collapse">
         <!--<%#tr data-toggle="collapse" data-target="#stories" class="accordion-toggle"> %>-->
-        <td><%= link_to '-', task_path(@task, story_id), data: {:confirm => 'Are you sure?'}, :method => :delete %></td>
+        <td><%= link_to '-', task_path(@task), data: {:confirm => 'Are you sure?'}, :method => :delete %></td>
         <td><%= task.id %></td>
-        <td><%= link_to task.name, edit_task_path(task), {controller: tasks, action: "edit", remote: true} %></td>
-        <td><%= task.description %></td>
+        <td><%= link_to task.name, edit_task_path(:id => task.id, :story_id => story_id), {controller: tasks, action: "edit", remote: true} %></td>
+        <td><%= task.status %></td>
         <td></td>
       </tr>
+      <div class='container'>
+        <% yield %>
+          <% if @task.id == task_id %>
+            <% if @story.id == story_id %>
+            <%= render partial: "tasks/dialog", locals: {story: story, task: task} %>
+          <% end %>
+          <% end %>
+      </div>
     <% end %>
     <div class='container'>
         <% yield %>
           <% if @story.id == story_id %>
             <%= render partial: "home/new_task_form", locals: {story_id: story.id} %>
+            <% if @project.id == project_id %>
+            <%= render partial: "stories/dialog", locals: {story: story, project: project} %>
+          <% end %>
           <% end %>
       </div>
     <% end %>
@@ -94,6 +101,7 @@
           <% if @project.id == project_id %>
             <%= render partial: "home/new_story_form", locals: {project_id: project.id} %>
             <%= render partial: "projects/dialog", locals: {project: project} %>
+            <%= render partial: "stories/dialog", locals: {project: project} %>
           <% end %>
       </div>
     <% end %>

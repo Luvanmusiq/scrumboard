@@ -18,6 +18,16 @@ class StoriesController < ApplicationController
   # GET /stories/1
   # GET /stories/1.json
   def show
+    project = Project.find(params[:project_id])
+    story = Story.find(params[:id])
+    project_id = project.id
+    project_name = project.name
+    story_id = story.id
+    story_name = story.name
+    respond_to do |format|
+     format.js {render 'edit', :locals => {story_id: story_id, story_name: story_name, project_id: project_id, project_name: project_name}}
+    end
+    redirect_to root_path
   end
 
   # GET /stories/new
@@ -25,16 +35,30 @@ class StoriesController < ApplicationController
     @story = Story.new
     @project = Project.find(params[:project])
     @project_id = @project.id
+    project_id = @project.id
+    project_name = @project.name
+    story_id = @story.id
+    story_name = @story.name
     logger.info @project_id
 
-    respond_to do |format|
      #format.html {render :partial => 'home/new_story_form', :remote => true }
-     format.html {render 'stories/new' }
+    respond_to do |format|
+     format.js {render 'new', :locals => {story_id: story_id, story_name: story_name, project_id: project_id, project_name: project_name} }
    end
   end
 
   # GET /stories/1/edit
   def edit
+    project = Project.find(params[:project_id])
+    story = Story.find(params[:id])
+    project_id = project.id
+    project_name = project.name
+    story_id = story.id
+    story_name = story.name
+    logger.info project.id 
+    respond_to do |format|
+     format.js {render 'edit', :locals => {story_id: story_id, story_name: story_name, project_id: project_id, project_name: project_name}}
+    end
   end
 
   # POST /stories
